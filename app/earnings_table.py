@@ -6,8 +6,6 @@ from pprint import pprint
 import pandas
 
 
-import pandas
-
 import requests
 
 from app.alpha import API_KEY
