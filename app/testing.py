@@ -1,46 +1,51 @@
-
 import os
 import json
-import requests
-from pandas import read_csv
+from pprint import pprint
 
+
+import requests
 
 API_KEY = os.getenv("ALPHAVANTAGE_API_KEY")
 
-def fetch_earnings_data(symbol):
+print("Earnings Report")
+
+
+def fetch_annual_earnings_data():
+        symbol = input("Input symbol: ")
+
         request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol={symbol}&apikey={API_KEY}"
+        
         response = requests.get(request_url)
+        
         parsed_response = json.loads(response.text)
 
-        return parsed_response["annualEarnings", "quarterlyEarnings"]
+        return parsed_response["annualEarnings"]
+
+def fetch_quarterly_earnings_data():
+        symbol = input("Input symbol: ")
+
+        request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol={symbol}&apikey={API_KEY}"
+        
+        response = requests.get(request_url)
+        
+        parsed_response = json.loads(response.text)
+
+        return parsed_response["quarterlyEarnings"]
 
 if __name__ == "__main__":
-        print("Earnings Report")
-
-        symbol = input("Please select a symbol (default = IBM): ") or "IBM"
-        print("SYMBOL: ", symbol)
         
-        annual = "annualEarnings"
-        quarterly = "quarterlyEarnings"
-
-        data_selected = input("Would you like to look at annual data or quarterly data?: ") or "annual"
-
-        if data_selected == "annual":
-                data_selected = annual
-        elif data_selected == "quarterly": 
-                data_selected = quarterly
-
-        data = [data_selected]
+        data_type = input("Would you like to look at annual data or quarterly data?: ") or "annual"
 
         date_selected = input("Please enter a year (default = 2022): ") or "2022"
 
-        if data_selected == "annual":
+        if data_type == "annual":
+                data = fetch_annual_earnings_data()
                 this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                 earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
                 print(earnings_this_year)
 
-
-        elif data_selected == "quarterly":
+        elif data_type == "quarterly":
+                data = fetch_quarterly_earnings_data()
                 this_quarter = input("Please enter a quarter (default = Q1): ") or "Q1"
                 if this_quarter == "Q4":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
@@ -54,10 +59,7 @@ if __name__ == "__main__":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                         earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
                         print(earnings_this_year[2])
-                elif this_quarter == "Q3":
+                elif this_quarter == "Q1":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                         earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
                         print(earnings_this_year[3])
-
-
-
