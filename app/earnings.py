@@ -1,3 +1,4 @@
+# this is the "app/earnings.py" file...
 
 import json
 from pprint import pprint
@@ -8,7 +9,9 @@ from dotenv import load_dotenv
 
 from app.alpha import API_KEY
 
-print("Earnings Report")
+
+ # def format_usd(my_price):
+   # return f"${my_price:,.2f}"
 
 
 def fetch_annual_earnings_data():
@@ -35,6 +38,8 @@ def fetch_quarterly_earnings_data():
 
 if __name__ == "__main__":
         
+        print("Earnings Report")
+
         data_type = input("Would you like to look at annual data or quarterly data?: ") or "annual"
 
         date_selected = input("Please enter a year (default = 2022): ") or "2022"
@@ -43,7 +48,7 @@ if __name__ == "__main__":
                 data = fetch_annual_earnings_data()
                 this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                 earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                print(earnings_this_year)
+                print("EPS",(earnings_this_year))
 
         elif data_type == "quarterly":
                 data = fetch_quarterly_earnings_data()
@@ -51,19 +56,19 @@ if __name__ == "__main__":
                 if this_quarter == "Q4":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                         earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print(earnings_this_year[0])
+                        print("EPS",(earnings_this_year[0]))
                 elif this_quarter == "Q3":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                         earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print(earnings_this_year[1])
+                        print("EPS",(earnings_this_year[1]))
                 elif this_quarter == "Q2":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                         earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print(earnings_this_year[2])
+                        print("EPS",(earnings_this_year[2]))
                 elif this_quarter == "Q1":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                         earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print(earnings_this_year[3])
+                        print("EPS",(earnings_this_year[3]))
 
         
 
