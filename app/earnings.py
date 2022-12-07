@@ -1,15 +1,32 @@
 
 import os
 import json
+from pandas import read_csv
 from pprint import pprint
+
 
 import requests
 
 API_KEY = os.getenv("ALPHAVANTAGE_API_KEY")
 
-request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol=IBM&apikey={API_KEY}"
+def fetch_earnings_data(symbol):
+        
+        request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol={symbol}&apikey={API_KEY}&datatype=csv"
+        
+        df = read_csv(request_url)
 
-response = requests.get(request_url)
+        return df
+
+if __name__ == "__main__":
+        print("Earnings Report")
+
+        symbol = input("Please select a symbol (default = IBM): ") or "IBM"
+        print("SYMBOL: ", symbol)
+
+        df = fetch_earnings_data(symbol)
+
+        print(df.columns)
+        print
 
 parsed_response = json.loads(response.text)
 #print(type(parsed_response))
