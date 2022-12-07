@@ -3,13 +3,9 @@
 import json
 from pprint import pprint
 
-
 import requests
-from dotenv import load_dotenv
 
 from app.alpha import API_KEY
-
-print("Earnings Report")
 
 def fetch_annual_earnings_data():
         symbol = input("Input company symbol: ")
@@ -34,6 +30,7 @@ def fetch_quarterly_earnings_data():
         return parsed_response["quarterlyEarnings"]
 
 if __name__ == "__main__":
+         
          print("Earnings Report")
          
          data_type = input("Would you like to look at annual data or quarterly data?: ") or "annual"
@@ -44,10 +41,8 @@ if __name__ == "__main__":
                 data = fetch_annual_earnings_data()
                 this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                 earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-
                 print("EPS",(earnings_this_year))
 
-                print(earnings_this_year)
 
          elif data_type == "quarterly":
                 data = fetch_quarterly_earnings_data()

@@ -1,6 +1,10 @@
+# this is the "app/earnings_table.py" file..
+
 import json
 from pprint import pprint
+
 import pandas
+
 
 import requests
 
