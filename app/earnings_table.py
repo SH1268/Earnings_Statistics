@@ -1,9 +1,9 @@
+# this is the "app/earnings_table.py" file..
+
 import json
 from pprint import pprint
 
-
 import requests
-from dotenv import load_dotenv
 
 from app.alpha import API_KEY
 
