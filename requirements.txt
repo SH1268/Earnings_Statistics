@@ -1,0 +1,11 @@
+# this is the "requirements.txt" file...
+
+python-dotenv
+
+pandas
+
+requests
+
+plotly
+
+sendgrid==6.6.0
