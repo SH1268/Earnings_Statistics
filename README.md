@@ -32,5 +32,10 @@ Runnings the earnings report:
 python -m app.earnings
 ```
 
+Runnings the earnings table:
+```sh
+python -m app.earnings_table
+```
+
 ## Testing
 
