@@ -1,5 +1,4 @@
 
-import os
 import json
 from pprint import pprint
 
@@ -7,9 +6,7 @@ from pprint import pprint
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
-
-API_KEY = os.getenv("ALPHAVANTAGE_API_KEY")
+from app.alpha import API_KEY
 
 print("Earnings Report")
 
