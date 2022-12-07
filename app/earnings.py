@@ -10,9 +10,6 @@ from dotenv import load_dotenv
 from app.alpha import API_KEY
 
 
- # def format_usd(my_price):
-   # return f"${my_price:,.2f}"
-
 
 def fetch_annual_earnings_data():
         symbol = input("Input symbol: ")
