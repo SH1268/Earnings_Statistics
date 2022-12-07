@@ -31,10 +31,26 @@ date_selected = input("Please enter a year (default = 2022): ") or "2022"
 
 if data_selected == annual:
     this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
-elif data_selected == quarterly:
-    this_quarter = input("Please...")
-    if this_quarter == "Q4":
-            this_year = [d for d in data if date_selected in d["fiscalDateEnding"][0]]
+    earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
+    print(earnings_this_year)
 
-earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-print(earnings_this_year)
+
+elif data_selected == quarterly:
+    this_quarter = input("Please enter a quarter (default = Q1): ") or "Q1"
+    if this_quarter == "Q4":
+            this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
+            earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
+            print(earnings_this_year[0])
+    elif this_quarter == "Q3":
+            this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
+            earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
+            print(earnings_this_year[1])
+    elif this_quarter == "Q2":
+            this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
+            earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
+            print(earnings_this_year[2])
+    elif this_quarter == "Q3":
+            this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
+            earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
+            print(earnings_this_year[3])
+
