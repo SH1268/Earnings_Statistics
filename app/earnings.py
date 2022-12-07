@@ -28,13 +28,3 @@ elif data_selected == "quarterly":
 data = parsed_response[data_selected]
 
 date_selected = input("Please enter a year (default = 2022): ") or "2022"
-
-if data_selected == annual:
-    this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
-elif data_selected == quarterly:
-    this_quarter = input("Please...")
-    if this_quarter == "Q4":
-            this_year = [d for d in data if date_selected in d["fiscalDateEnding"][0]]
-
-earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-print(earnings_this_year)
