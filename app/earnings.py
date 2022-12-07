@@ -1,54 +1,40 @@
-# this is the "app/earnings.py" file...
-
-print("EARNINGS REPORT...")
 
 import os
-from pandas import read_csv
+import json
+from pprint import pprint
 
-from app.alpha import API_KEY
+import requests
 
-def format_usd(my_price):
-    return f"${my_price:,.2f}"
+API_KEY = os.getenv("ALPHAVANTAGE_API_KEY")
 
-def fetch_stocks_data(symbol):
-    request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol={symbol}&apikey={API_KEY}&datatype=csv"
+request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol=IBM&apikey={API_KEY}"
 
-    df = read_csv(request_url)
-    return df
+response = requests.get(request_url)
 
-if __name__ == "__main__":
+parsed_response = json.loads(response.text)
+#print(type(parsed_response))
+#pprint(parsed_response)
 
-    symbol = input("Please input a stock symbol (default: 'NFLX'): ") or "NFLX"
-    print("SYMBOL:", symbol)
+annual = "annualEarnings"
+quarterly = "quarterlyEarnings"
 
-    df = fetch_stocks_data(symbol)
+data_selected = input("Would you like to look at annual data or quarterly data?: ") or "annual"
 
-    request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&apikey={API_KEY}&datatype=csv"
+if data_selected == "annual":
+     data_selected = annual
+elif data_selected == "quarterly": 
+    data_selected = quarterly
 
-    df = read_csv(request_url)
-    print(df.columns)
-    print(df.head())
-    #breakpoint()
+data = parsed_response[data_selected]
 
-    # CHALLENGE A:
-    # print the latest closing date and price
+date_selected = input("Please enter a year (default = 2022): ") or "2022"
 
-    latest = df.iloc[0]
+if data_selected == annual:
+    this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
+elif data_selected == quarterly:
+    this_quarter = input("Please...")
+    if this_quarter == "Q4":
+            this_year = [d for d in data if date_selected in d["fiscalDateEnding"][0]]
 
-    #print(latest["timestamp"])
-    #print(latest["close"])
-    print("LATEST:", format_usd(latest["adjusted_close"]), "as of", latest["timestamp"])
-
-    # Challenge B
-    #
-    # What is the highest high price (formatted as USD)?
-    # What is the lowest low price (formatted as USD)?
-
-    print("HIGH:", format_usd(df["high"].max()))
-    print("LOW:", format_usd(df["low"].min()))
-
-
-
-
-
-
+earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
+print(earnings_this_year)
