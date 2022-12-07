@@ -7,6 +7,10 @@ import requests
 
 from app.alpha import API_KEY
 
+def format_usd(my_price):
+     return f"${my_price:,.2f}"
+
+
 def fetch_annual_earnings_data():
         symbol = input("Input company symbol: ")
 
@@ -41,7 +45,7 @@ if __name__ == "__main__":
                 data = fetch_annual_earnings_data()
                 this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                 earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                print("EPS",(earnings_this_year))
+                print("EPS",format_usd(earnings_this_year[0]))
 
 
          elif data_type == "quarterly":
@@ -50,22 +54,22 @@ if __name__ == "__main__":
                 if this_quarter == "Q4":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                         earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print("EPS",(earnings_this_year[0]))
+                        print("EPS",format_usd(earnings_this_year[0]))
 
                 elif this_quarter == "Q3":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                         earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print("EPS",(earnings_this_year[1]))
+                        print("EPS",format_usd(earnings_this_year[1]))
 
                 elif this_quarter == "Q2":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                         earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print("EPS",(earnings_this_year[2]))
+                        print("EPS",format_usd(earnings_this_year[2]))
 
                 elif this_quarter == "Q1":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                         earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print("EPS",(earnings_this_year[3]))
+                        print("EPS",format_usd(earnings_this_year[3]))
 
         
 
