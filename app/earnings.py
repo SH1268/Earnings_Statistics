@@ -10,9 +10,12 @@ from app.alpha import API_KEY
 def format_usd(my_price):
      return f"${my_price:,.2f}"
 
+all_datapoints = []
 
-def fetch_annual_earnings_data():
-        symbol = input("Input company symbol: ")
+add_data = input("Would you like to add a new datapoint? (Yes/No) ") or "Yes"
+
+while add_data == "Yes":
+    def fetch_annual_earnings_data():
 
         request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol={symbol}&apikey={API_KEY}"
         
@@ -22,8 +25,7 @@ def fetch_annual_earnings_data():
 
         return parsed_response["annualEarnings"]
 
-def fetch_quarterly_earnings_data():
-        symbol = input("Input company symbol: ")
+    def fetch_quarterly_earnings_data():
 
         request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol={symbol}&apikey={API_KEY}"
         
@@ -33,10 +35,10 @@ def fetch_quarterly_earnings_data():
 
         return parsed_response["quarterlyEarnings"]
 
-if __name__ == "__main__":
+    if __name__ == "__main__":
          
-         print("Earnings Report")
-         
+         symbol = input("Input company symbol: ") or "IBM"
+
          data_type = input("Would you like to look at annual data or quarterly data?: ") or "annual"
          
          date_selected = input("Please enter a year (default = 2022): ") or "2022"
@@ -45,7 +47,10 @@ if __name__ == "__main__":
                 data = fetch_annual_earnings_data()
                 this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                 earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                print("EPS",format_usd(earnings_this_year[0]))
+                raw_datapoint = ("EPS for ",symbol," in ", date_selected," is ", format_usd(earnings_this_year[0]))
+                new_datapoint = ''.join(raw_datapoint)
+                all_datapoints.append(new_datapoint)
+                add_data = input("Would you like to add a new datapoint? (Yes/No) ") or "Yes"
 
 
          elif data_type == "quarterly":
@@ -53,25 +58,34 @@ if __name__ == "__main__":
                 this_quarter = input("Please enter a quarter (default = Q1): ") or "Q1"
                 if this_quarter == "Q4":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
-                        earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print("EPS",format_usd(earnings_this_year[0]))
+                        earnings_Q4 = [float(d["reportedEPS"]) for d in this_year]
+                        raw_datapoint = ("EPS for ",symbol," in ", date_selected," Q4 is ", format_usd(earnings_Q4[0]))
+                        new_datapoint = ''.join(raw_datapoint)
+                        all_datapoints.append(new_datapoint)
+                        add_data = input("Would you like to add a new datapoint? (Yes/No) ") or "Yes"
 
                 elif this_quarter == "Q3":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
-                        earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print("EPS",format_usd(earnings_this_year[1]))
+                        earnings_Q3 = [float(d["reportedEPS"]) for d in this_year]
+                        raw_datapoint = ("EPS for ",symbol," in ", date_selected," Q3 is ", format_usd(earnings_Q3[1]))
+                        new_datapoint = ''.join(raw_datapoint)
+                        all_datapoints.append(new_datapoint)
+                        add_data = input("Would you like to add a new datapoint? (Yes/No) ") or "Yes"
 
                 elif this_quarter == "Q2":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
-                        earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print("EPS",format_usd(earnings_this_year[2]))
+                        earnings_Q2 = [float(d["reportedEPS"]) for d in this_year]
+                        raw_datapoint = ("EPS for ",symbol," in ", date_selected," Q2 is ", format_usd(earnings_Q2[2]))
+                        new_datapoint = ''.join(raw_datapoint)
+                        all_datapoints.append(new_datapoint)
+                        add_data = input("Would you like to add a new datapoint? (Yes/No) ") or "Yes"
 
                 elif this_quarter == "Q1":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
-                        earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
-                        print("EPS",format_usd(earnings_this_year[3]))
+                        earnings_Q1 = [float(d["reportedEPS"]) for d in this_year]
+                        raw_datapoint = ("EPS for ",symbol," in ", date_selected," Q1 is ", format_usd(earnings_Q1[3]))
+                        new_datapoint = ''.join(raw_datapoint)
+                        all_datapoints.append(new_datapoint)
+                        add_data = input("Would you like to add a new datapoint? (Yes/No) ") or "Yes"
 
-        
-
-        
-        
+print(all_datapoints)
