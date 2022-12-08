@@ -2,11 +2,11 @@
 
 import json
 from pprint import pprint
+import requests
+from plotly.express import line
+import plotly.graph_objects as go
 
 import pandas
-
-
-import requests
 
 from app.alpha import API_KEY
 
@@ -39,10 +39,34 @@ if __name__ == "__main__":
 
         if data_type == "annual":
                 data = fetch_annual_earnings_data(symbol=symbol)
-                print(data)
+
+                dates = [d["fiscalDateEnding"] for d in data]
+                eps = [float(d["reportedEPS"]) for d in data]
+                fig = line(x=dates, y=eps, title="Reported Earnings per Share (Annual)", labels= {"x": "Years", "y": "Earnings/Share"})
+                fig.show()
+
+                df = pandas.DataFrame(data)
+                fig2 = go.Figure(data=[go.Table(
+                        header=dict(values=list(df.columns)),
+                        cells=dict(values= [df.fiscalDateEnding, df.reportedEPS]))
+                        ])
+                fig2.show()
+
 
         elif data_type == "quarterly":
                 data = fetch_quarterly_earnings_data(symbol=symbol)
-                print(data)
 
-        
+                dates = [d["fiscalDateEnding"] for d in data]
+                eps = [float(d["reportedEPS"]) for d in data]
+                fig = line(x=dates, y=eps, title="Reported Earnings per Share (Quarter)", labels= {"x": "Months", "y": "Earnings/Share"})
+                fig.show()
+
+                df = pandas.DataFrame(data)
+                fig2 = go.Figure(data=[go.Table(
+                        name= "Stock Data Report",
+                        header=dict(values=list(df.columns)),
+                        cells=dict(values= [df.fiscalDateEnding, df.reportedDate, df.reportedEPS, df.estimatedEPS, 
+                        df.surprise, df.surprisePercentage]))
+                ])
+
+                fig2.show()
