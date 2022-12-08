@@ -52,9 +52,6 @@ if __name__ == "__main__":
                         ])
                 fig2.show()
 
-                
-
-                
 
         elif data_type == "quarterly":
                 data = fetch_quarterly_earnings_data(symbol=symbol)
