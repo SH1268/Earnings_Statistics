@@ -11,8 +11,8 @@ def format_usd(my_price):
      return f"${my_price:,.2f}"
 
 all_datapoints = []
-
-add_data = input("Would you like to add a new datapoint? (Yes/No) ") or "Yes"
+ 
+add_data = "Yes"
 
 while add_data == "Yes":
     def fetch_annual_earnings_data():
