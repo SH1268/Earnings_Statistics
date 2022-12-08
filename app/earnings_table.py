@@ -39,6 +39,7 @@ if __name__ == "__main__":
 
         if data_type == "annual":
                 data = fetch_annual_earnings_data(symbol=symbol)
+<<<<<<< Working_SH_Day2_1
 
                 dates = [d["fiscalDateEnding"] for d in data]
                 eps = [float(d["reportedEPS"]) for d in data]
@@ -51,6 +52,13 @@ if __name__ == "__main__":
                         cells=dict(values= [df.fiscalDateEnding, df.reportedEPS]))
                         ])
                 fig2.show()
+=======
+                print(data)
+
+        elif data_type == "quarterly":
+                data = fetch_quarterly_earnings_data(symbol=symbol)
+                print(data)
+>>>>>>> main
 
 
         elif data_type == "quarterly":
