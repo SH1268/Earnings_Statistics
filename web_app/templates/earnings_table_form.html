@@ -1,0 +1,25 @@
+{% extends "bootstrap_5_layout.html" %}
+{% set active_page = "earnings_table_form" %}
+
+{% block content %}
+
+    <h2>Earnings Table Form</h2>
+
+    <p>Request some stock's earnings data...</p>
+
+    <form action="/earnings/dashboard" method="POST">
+
+        <label>Stock Symbol:</label>
+        <input type="text" name="symbol" placeholder="IBM" value="IBM">
+        <br>
+
+        <label>Mode:</label>
+        <select name="mode">
+            <option value="annual">Annual</option>
+            <option value="quarterly">Quarterly</option>
+        <br>
+
+        <button class="btn btn-success">Submit</button>
+    </form>
+
+{% endblock %}
