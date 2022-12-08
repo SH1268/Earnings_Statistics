@@ -22,7 +22,6 @@ def create_app():
 
     app.register_blueprint(home_routes)
     app.register_blueprint(earnings_table_routes)
-    app.register_blueprint()
     #app.register_blueprint(book_routes)
     #app.register_blueprint(weather_routes)
     return app

@@ -1,19 +1,19 @@
 
 # this is the "web_app/routes/unemployment_routes.py" file...
 
-from flask import Blueprint
+from flask import Blueprint, request, render_template, redirect
 
 from app.earnings_table import fetch_annual_earnings_data, fetch_quarterly_earnings_data
 
 earnings_table_routes = Blueprint("earnings_table_routes", __name__)
 
 @earnings_table_routes.route("/earnings_table/form")
-def stocks_form():
+def earnings_table_form():
     print("EARNINGS FORM...")
     return render_template("earnings_table_form.html")
 
 @earnings_table_routes.route("/earnings_table/dashboard",  methods=["GET", "POST"])
-def stocks_dashboard():
+def earnings_table_dashboard():
     print("EARNINGS DASHBOARD...")
 
     if request.method == "POST":

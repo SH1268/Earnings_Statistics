@@ -11,16 +11,16 @@ def index():
     #return "Welcome Home"
     return render_template("home.html")
 
-@home_routes.route("/earnings")
-def earnings():
-    print("Earnings...")
-    return render_template("earnings.html")
+# @home_routes.route("/earnings")
+# def earnings():
+#     print("Earnings...")
+#     return render_template("earnings.html")
 
 @home_routes.route("/earnings_table")
 def earnings_table():
     print("Earnings Table")
 
-    # if the request contains url params, for example a request to "/hello?name=Harper"
+    # if the request contains url params, for example a request to "/"
     # the request object's args property will hold the values in a dictionary-like structure
     url_params = dict(request.args)
     print("URL PARAMS:", url_params) #> can be empty like {} or full of params like {"name":"Harper"}
