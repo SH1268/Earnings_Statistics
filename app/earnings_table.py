@@ -20,9 +20,9 @@ def fetch_annual_earnings_data(symbol):
         
         parsed_response = json.loads(response.text)
 
-        annual = "annualEarnings"
+        new_data = pandas.DataFrame(parsed_response["quarterlyEarnings"])
 
-        return parsed_response[annual]
+        return new_data
 
 def fetch_quarterly_earnings_data(symbol):
 
@@ -32,9 +32,9 @@ def fetch_quarterly_earnings_data(symbol):
         
         parsed_response = json.loads(response.text)
 
-        quarterly = "quarterlyEarnings"
+        new_data = pandas.DataFrame(parsed_response["quarterlyEarnings"])
 
-        return parsed_response[quarterly]
+        return new_data
 
 if __name__ == "__main__":
         symbol = input("Input company symbol: ")
@@ -42,13 +42,11 @@ if __name__ == "__main__":
         data_type = input("Would you like to look at annual data or quarterly data?: ") or "annual"
 
         if data_type == "annual":
-                data = fetch_annual_earnings_data()
-                new_data = pandas.DataFrame(data)
-                print(new_data)
+                data = fetch_annual_earnings_data(symbol=symbol)
+                print(data)
 
         elif data_type == "quarterly":
-                data = fetch_quarterly_earnings_data()
-                new_data = pandas.DataFrame(data)
-                print(new_data)
+                data = fetch_quarterly_earnings_data(symbol=symbol)
+                print(data)
 
         

@@ -1,33 +1,22 @@
 from app.earnings_table import fetch_quarterly_earnings_data, fetch_annual_earnings_data
+from pandas import DataFrame
 
 def test_fetch_quarterly_earnings_data():
     result = fetch_quarterly_earnings_data("IBM")
-    assert isinstance (result, list)
+    assert isinstance (result, DataFrame)
 
-    latest = result[0]
-
-    assert "fiscalDateEnding" in latest.keys()
-    assert isinstance(latest["fiscalDateEnding"], str)
-    assert "reportedDate" in latest.keys()
-    assert isinstance(latest["reportedDate"], str)
-    assert "reportedEPS" in latest.keys()
-    assert isinstance(latest["reportedEPS"], str)
-    assert "estimatedEPS" in latest.keys()
-    assert isinstance(latest["estimatedEPS"], str)
-    assert "surprise" in latest.keys()
-    assert isinstance(latest["surprise"], str)
-    assert "surprisePercentage" in latest.keys()
-    assert isinstance(latest["surprisePercentage"], str)
+    assert "fiscalDateEnding" in result.columns
+    assert "reportedDate" in result.columns
+    assert "reportedEPS" in result.columns
+    assert "estimatedEPS" in result.columns
+    assert "surprise" in result.columns
+    assert "surprisePercentage" in result.columns
 
 def test_fetch_annual_earnings_data():
     result = fetch_annual_earnings_data("IBM")
-    assert isinstance (result, list)
+    assert isinstance (result, DataFrame)
     
-    latest = result[0]
 
-    assert "fiscalDateEnding" in latest.keys()
-    assert isinstance(latest["fiscalDateEnding"], str)
-    
-    assert "reportedEPS" in latest.keys()
-    assert isinstance(latest["reportedEPS"], str)
+    assert "fiscalDateEnding" in result.columns
+    assert "reportedEPS" in result.columns
     
