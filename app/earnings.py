@@ -11,11 +11,9 @@ def format_usd(my_price):
      return f"${my_price:,.2f}"
 
 all_datapoints = []
- 
-add_data = "Yes"
 
-while add_data == "Yes":
-    def fetch_annual_earnings_data():
+
+def fetch_annual_earnings_data(symbol):
 
         request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol={symbol}&apikey={API_KEY}"
         
@@ -25,7 +23,7 @@ while add_data == "Yes":
 
         return parsed_response["annualEarnings"]
 
-    def fetch_quarterly_earnings_data():
+def fetch_quarterly_earnings_data(symbol):
 
         request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol={symbol}&apikey={API_KEY}"
         
@@ -35,7 +33,7 @@ while add_data == "Yes":
 
         return parsed_response["quarterlyEarnings"]
 
-    if __name__ == "__main__":
+if __name__ == "__main__":
          
          symbol = input("Input company symbol: ") or "IBM"
 
@@ -44,7 +42,7 @@ while add_data == "Yes":
          date_selected = input("Please enter a year (default = 2022): ") or "2022"
 
          if data_type == "annual":
-                data = fetch_annual_earnings_data()
+                data = fetch_annual_earnings_data(symbol=symbol)
                 this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
                 earnings_this_year = [float(d["reportedEPS"]) for d in this_year]
                 raw_datapoint = ("EPS for ",symbol," in ", date_selected," is ", format_usd(earnings_this_year[0]))
@@ -54,7 +52,7 @@ while add_data == "Yes":
 
 
          elif data_type == "quarterly":
-                data = fetch_quarterly_earnings_data()
+                data = fetch_quarterly_earnings_data(symbol=symbol)
                 this_quarter = input("Please enter a quarter (default = Q1): ") or "Q1"
                 if this_quarter == "Q4":
                         this_year = [d for d in data if date_selected in d["fiscalDateEnding"]]
@@ -87,5 +85,3 @@ while add_data == "Yes":
                         new_datapoint = ''.join(raw_datapoint)
                         all_datapoints.append(new_datapoint)
                         add_data = input("Would you like to add a new datapoint? (Yes/No) ") or "Yes"
-
-print(all_datapoints)
