@@ -20,9 +20,7 @@ def fetch_annual_earnings_data(symbol):
         
         parsed_response = json.loads(response.text)
 
-        new_data = pandas.DataFrame(parsed_response["quarterlyEarnings"])
-
-        return new_data
+        return parsed_response["annualEarnings"]
 
 def fetch_quarterly_earnings_data(symbol):
 
@@ -32,9 +30,7 @@ def fetch_quarterly_earnings_data(symbol):
         
         parsed_response = json.loads(response.text)
 
-        new_data = pandas.DataFrame(parsed_response["quarterlyEarnings"])
-
-        return new_data
+        return parsed_response["quarterlyEarnings"]
 
 if __name__ == "__main__":
         symbol = input("Input company symbol: ")
