@@ -10,9 +10,9 @@ import requests
 
 from app.alpha import API_KEY
 
+print("Earnings Report")
 
-def fetch_annual_earnings_data():
-        symbol = input("Input company symbol: ")
+def fetch_annual_earnings_data(symbol):
 
         request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol={symbol}&apikey={API_KEY}"
         
@@ -22,8 +22,7 @@ def fetch_annual_earnings_data():
 
         return parsed_response["annualEarnings"]
 
-def fetch_quarterly_earnings_data():
-        symbol = input("Input company symbol: ")
+def fetch_quarterly_earnings_data(symbol):
 
         request_url = f"https://www.alphavantage.co/query?function=EARNINGS&symbol={symbol}&apikey={API_KEY}"
         
@@ -34,7 +33,7 @@ def fetch_quarterly_earnings_data():
         return parsed_response["quarterlyEarnings"]
 
 if __name__ == "__main__":
-        print("Earnings Report")
+        symbol = input("Input company symbol: ")
          
         data_type = input("Would you like to look at annual data or quarterly data?: ") or "annual"
 
