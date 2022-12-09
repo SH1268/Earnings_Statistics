@@ -29,14 +29,14 @@ def earnings_table_dashboard():
 
     try:
         dfa = fetch_annual_earnings_data(symbol=symbol)
-        latest_eps = (dfa.iloc[0]["reportedEPS"])
+        latest_eps = dfa.iloc[0]["reportedEPS"]
         latest_date = dfa.iloc[0]["fiscalDateEnding"]
-        adata = dfa.to_dict("records")
+        adata = dfa.to_dict("recordsa")
 
         dfq = fetch_quarterly_earnings_data(symbol=symbol)
         latest_eps = (dfq.iloq[0]["reportedEPS"])
         latest_date = (dfq.iloq[0]["fiscalDateEnding"])
-        qdata = dfq.to_dict("records")
+        qdata = dfq.to_dict("recordsq")
 
         #flash("Fetched Real-time Market Data!", "success")
         return render_template("earnings_table_dashboard.html",
@@ -66,9 +66,9 @@ def earnings_table_api():
 
     try:
         dfa = fetch_annual_earnings_data(symbol=symbol)
-        adata = dfa.to_dict("records")
+        adata = dfa.to_dict("recordsa")
         dfq = fetch_quarterly_earnings_data(symbol=symbol)
-        qdata = dfq.to_dict("records")
+        qdata = dfq.to_dict("recordsq")
         return {"symbol": symbol, "annualEarnings": adata, "quarterlyEarnings": qdata}
     except Exception as err:
         print('OOPS', err)
