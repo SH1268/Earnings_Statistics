@@ -11,8 +11,8 @@ def earnings_table_form():
         print("EARNINGS FORM...")
         return render_template("earnings_table_form.html")
     
-@earnings_table_routes.route("/earnings_table/dashboard",  methods=["GET", "POST"])
-def earnings_table_dashboard():
+@earnings_table_routes.route("/earnings_table/annual_dashboard",  methods=["GET", "POST"])
+def earnings_table_annual_dashboard():
         print("EARNINGS DASHBOARD...")
     
         if request.method == "POST":
@@ -27,22 +27,17 @@ def earnings_table_dashboard():
         symbol = request_data.get("symbol") or "IBM"
     
         try:
-            dfa = fetch_annual_earnings_data(symbol=symbol)
-            latest_eps = dfa.iloc[0]["reportedEPS"]
-            latest_date = dfa.iloc[0]["fiscalDateEnding"]
-            adata = dfa.to_dict("recordsa")
-    
-            dfq = fetch_quarterly_earnings_data(symbol=symbol)
-            latest_eps = (dfq.iloq[0]["reportedEPS"])
-            latest_date = (dfq.iloq[0]["fiscalDateEnding"])
-            qdata = dfq.to_dict("recordsq")
-    
+            data = fetch_annual_earnings_data(symbol=symbol)
+            latest = data[0]
+            latest_eps = float(latest["reportedEPS"])
+            latest_date = latest["fiscalDateEnding"]
+
             #flash("Fetched Real-time Market Data!", "success")
-            return render_template("earnings_table_dashboard.html",
+            return render_template("earnings_table.html",
                 symbol=symbol,
                 latest_eps=latest_eps,
                 latest_date=latest_date,
-                adata=adata, qdata=qdata
+                data=data
             )
         except Exception as err:
             print('OOPS', err)
@@ -64,11 +59,9 @@ def earnings_table_api():
         symbol = url_params.get("symbol") or "IBM"
     
         try:
-            dfa = fetch_annual_earnings_data(symbol=symbol)
-            adata = dfa.to_dict("recordsa")
-            dfq = fetch_quarterly_earnings_data(symbol=symbol)
-            qdata = dfq.to_dict("recordsq")
-            return {"symbol": symbol, "annualEarnings": adata, "quarterlyEarnings": qdata}
+            data = fetch_annual_earnings_data(symbol=symbol)
+            df = str(data)
+            return df
         except Exception as err:
             print('OOPS', err)
             return {"message":"Market Data Error. Please try again."}, 404
