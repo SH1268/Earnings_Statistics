@@ -7,7 +7,7 @@ from flask import Flask
 
 from web_app.routes.home_routes import home_routes
 from web_app.routes.earnings_table_routes import earnings_table_routes
-# from web_app.routes.earnings_routes import earnings_routes
+#from web_app.routes.earnings_routes import earnings_routes
 #from web_app.routes.book_routes import book_routes
 #from web_app.routes.weather_routes import weather_routes
 
