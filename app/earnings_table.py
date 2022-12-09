@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
                 dates = [d["fiscalDateEnding"] for d in data]
                 eps = [float(d["reportedEPS"]) for d in data]
-                fig = line(x=dates, y=eps, title="Reported Earnings per Share (Annual)", labels= {"x": "Years", "y": "Earnings/Share"})
+                fig = line(x=dates, y=eps, title="Reported Earnings per Share (Annual)", labels= {"x": "Year", "y": "Earnings per Share"})
                 fig.show()
 
                 df = pandas.DataFrame(data)
@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
                 dates = [d["fiscalDateEnding"] for d in data]
                 eps = [float(d["reportedEPS"]) for d in data]
-                fig = line(x=dates, y=eps, title="Reported Earnings per Share (Quarter)", labels= {"x": "Months", "y": "Earnings/Share"})
+                fig = line(x=dates, y=eps, title="Reported Earnings per Share (Quarter)", labels= {"x": "Month & Year", "y": "Earnings per Share"})
                 fig.show()
 
                 df = pandas.DataFrame(data)

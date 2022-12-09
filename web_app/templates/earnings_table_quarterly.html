@@ -1,0 +1,67 @@
+{% extends "bootstrap_5_layout.html" %}
+{% set active_page = "quarterly_dashboard" %}
+
+{% block content %}
+
+    <h2>Quarterly Earnings Table Dashboard ({{ symbol }})</h2>
+
+    <p class="lead">Latest Earning per Share: {{ latest_eps }} (as of {{ latest_date }})</p>
+
+    <div id="chart-container" height="700px"></div>
+    
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+
+        console.log("EARNINGS TABLE DASHBOARD...")
+
+        // use data from the router!
+        var symbol = '{{ symbol }}'
+        var data = JSON.parse('{{"data | tojson"}}') // https://stackoverflow.com/a/45132694/670433
+        console.log(earningsData)
+
+        var dates = earningsData.map(obj => obj["fiscalDateEnding"])
+        var eps = earningsData.map(obj => parseFloat(obj["reportedEPS"]))
+
+        // visualize the data
+        // see: https://plotly.com/javascript/line-charts/
+        var series = {
+            x: dates,
+            y: eps,
+            mode: "lines+markers"
+        }
+        var data = [series]
+        var layout = {
+            title: "Earnings per Share for " + symbol,
+            height: 600,
+            yaxis: {
+                tickformat: '$' // https://plotly.com/javascript/tick-formatting/
+            }
+        }
+        Plotly.newPlot("chart-container", data, layout, {responsive: true})
+    </script>
+
+<table class="table table-hover table-responsive caption-top">
+    <caption>Latest Data</caption>
+    <thead>
+        <tr>
+            <th scope="col">Reported Quarterly Date</th>
+            <th scope="col">Earnings per Share</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    <!--
+        JINJA FOR LOOP
+        https://jinja.palletsprojects.com/en/3.1.x/templates/
+    -->
+    {% for row in data[0:-1] %}
+        <tr>
+            <td>{{ row["fiscalDateEnding"] }}</td>
+            <td>${{ row["reportedEPS"] }}</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+    
+{% endblock %}

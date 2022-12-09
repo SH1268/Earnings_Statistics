@@ -1,0 +1,16 @@
+{% extends "bootstrap_5_layout.html" %}
+
+{% block content %}
+
+    <h2>Quarterly Earnings Table Form</h2>
+
+    <p>Request some stock's quarterly earnings data...</p>
+
+    <form action="/earnings_table/quarterly_dashboard" method="POST">
+
+        <label>Stock Symbol:</label>
+        <input type="text" name="symbol" placeholder="IBM" value="IBM">
+        <button class="btn btn-success">Submit</button>
+    </form>
+
+{% endblock %}
