@@ -16,14 +16,9 @@ def about():
     print("ABOUT...")
     return render_template("about.html")
 
-@home_routes.route("/earnings")
-def earnings():
-     print("Earnings...")
-     return render_template("earnings.html")
-
-@home_routes.route("/earnings_table")
-def earnings_table():
-    print("Earnings Table")
+@home_routes.route("/earnings_table_annual")
+def earnings_annual_table():
+    print("Annual Earnings Table")
 
     # if the request contains url params, for example a request to "/"
     # the request object's args property will hold the values in a dictionary-like structure
@@ -34,6 +29,19 @@ def earnings_table():
     # see also: https://www.w3schools.com/python/ref_dictionary_get.asp
     symbol = url_params.get("symbol")
 
-    message = f"Hello, {symbol}"
+    return render_template("earnings_table_annual.html")
 
-    return render_template("earnings_table.html")
+@home_routes.route("/earnings_table_quarterly")
+def earnings_quarterly_table():
+    print("Quarterly Earnings Table")
+
+    # if the request contains url params, for example a request to "/"
+    # the request object's args property will hold the values in a dictionary-like structure
+    url_params = dict(request.args)
+    print("URL PARAMS:", url_params) #> 
+
+    # get a specific key called "name" if available, otherwise use some specified default value
+    # see also: https://www.w3schools.com/python/ref_dictionary_get.asp
+    symbol = url_params.get("symbol")
+
+    return render_template("earnings_table_annual.html")
