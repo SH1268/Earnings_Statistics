@@ -1,5 +1,4 @@
 {% extends "bootstrap_5_layout.html" %}
-{% set active_page = "earnings_table_dashboard" %}
 
 {% block content %}
 
@@ -18,7 +17,7 @@
         var symbol = '{{ symbol }}'
         //var stockData = JSON.parse('{{ data }}')
         //var stockData = '{{ data }}'
-        var stockData = JSON.parse('{{data | tojson}}') // https://stackoverflow.com/a/45132694/670433
+        var stockData = JSON.parse('{{annualEarnings | tojson}}') // https://stackoverflow.com/a/45132694/670433
         console.log(stockData)
 
         //var tsd = stockData["Time Series (Daily)"]
