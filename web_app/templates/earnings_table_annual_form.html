@@ -2,23 +2,14 @@
 
 {% block content %}
 
-    <h2>Earnings Table Form</h2>
+    <h2>Annual Earnings Table Form</h2>
 
-    <p>Request some stock's earnings data...</p>
+    <p>Request some stock's annual earnings data...</p>
 
     <form action="/earnings_table/annual_dashboard" method="POST">
 
         <label>Stock Symbol:</label>
         <input type="text" name="symbol" placeholder="IBM" value="IBM">
-        <br>
-
-        <label>Mode:</label>
-        <select name="data_type">
-            <option value="annual">Annual</option>
-            <option value="quarterly">Quarterly</option>
-        </select>
-        <br>
-
         <button class="btn btn-success">Submit</button>
     </form>
 
