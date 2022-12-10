@@ -16,7 +16,7 @@
 
         // use data from the router!
         var symbol = '{{ symbol }}'
-        var data = JSON.parse('{{"data | tojson"}}') // https://stackoverflow.com/a/45132694/670433
+        var earningsDATA = JSON.parse('{{"data | tojson"}}') // https://stackoverflow.com/a/45132694/670433
         console.log(earningsData)
 
         var dates = earningsData.map(obj => obj["fiscalDateEnding"])

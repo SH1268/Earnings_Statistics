@@ -22,7 +22,7 @@ heroku apps # at this time, results might be empty-ish
 Use the command-line (instructions below) to create a new application server, specifying a unique name (e.g. "unemployment-app-123", but yours will need to be different):
 
 ```sh
-heroku create unemployment-app-123 # choose your own unique name!
+heroku create earnings-app-f2022 # choose your own unique name!
 ```
 
 Verify the app has been created:
@@ -52,8 +52,8 @@ heroku config # at this time, results might be empty-ish
 # set environment variables:
 heroku config:set APP_ENV="production"
 
-heroku config:set ALPHAVANTAGE_API_KEY="______"
-heroku config:set DEFAULT_SYMBOL="GOOGL"
+heroku config:set ALPHAVANTAGE_API_KEY="___"
+heroku config:set DEFAULT_SYMBOL="IBM"
 
 heroku config:set SENDGRID_API_KEY="_________"
 heroku config:set SENDER_EMAIL_ADDRESS="someone@gmail.com"
