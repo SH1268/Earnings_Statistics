@@ -2,7 +2,6 @@
 # NOTE: we were able to find the wanted inputs in the terminal, yet deploying this app in the local host was too complicated and time-consuming
 
 import json
-from pprint import pprint
 
 import requests
 

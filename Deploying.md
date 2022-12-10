@@ -19,7 +19,7 @@ heroku apps # at this time, results might be empty-ish
 
 > IMPORTANT: run the following commands from the root directory of your repository!
 
-Use the command-line (instructions below) to create a new application server, specifying a unique name (e.g. "unemployment-app-123", but yours will need to be different):
+Use the command-line (instructions below) to create a new application server, specifying a unique name:
 
 ```sh
 heroku create earnings-app-f2022 # choose your own unique name!
@@ -54,9 +54,6 @@ heroku config:set APP_ENV="production"
 
 heroku config:set ALPHAVANTAGE_API_KEY="___"
 heroku config:set DEFAULT_SYMBOL="IBM"
-
-heroku config:set SENDGRID_API_KEY="_________"
-heroku config:set SENDER_EMAIL_ADDRESS="someone@gmail.com"
 ```
 
 At this point, you should be able to verify the production environment has been configured with the proper environment variable values:
@@ -83,11 +80,11 @@ Once you've deployed the source code to the Heroku server, login to the server t
 heroku run bash # login to the server
 # ... whoami # see that you are not on your local computer anymore
 # ... ls -al # optionally see the files, nice!
-# ... python -m app.unemployment_email # see the output, nice!
+# ... python -m app.earnings_table # see the output, nice!
 # ... exit # logout
 
 # or alternatively, run it from your computer, in "detached" mode:
-heroku run "python -m app.unemployment_email"
+heroku run "python -m app.earnings_table"
 ```
 
 ## Scheduling the Script
@@ -98,7 +95,7 @@ From the "Resources" tab in your application's Heroku dashboard, search for an a
 
 > NOTE: if doing this for the first time, Heroku may ask you to provide billing info. Feel free (but not obligated) to provide it, as the services we are using to complete this exercise are all free, and your card should not be charged!
 
-Finally, click on the provisioned "Heroku Scheduler" resource from the "Resources" tab, then click to "Add a new Job". When adding the job, choose to execute the designated python command (`python -m app.unemployment_email`) at a scheduled interval (e.g. every 10 minutes), and finally click to "Save" the job:
+Finally, click on the provisioned "Heroku Scheduler" resource from the "Resources" tab, then click to "Add a new Job". When adding the job, choose to execute the designated python command (`python -m app.earnings_table`) at a scheduled interval (e.g. every 10 minutes), and finally click to "Save" the job:
 
 > NOTE: really we would probably schedule this report to get sent once per month, but we're choosing every 10 minutes just for demo purposes.
 

@@ -27,12 +27,12 @@ ALPHAVANTAGE_API_KEY="___"
 
 ## Usage
 
-Runnings the earnings report:
+Running the earnings report:
 ```sh
 python -m app.earnings
 ```
 
-Runnings the earnings table:
+Running the earnings table report:
 ```sh
 python -m app.earnings_table
 ```

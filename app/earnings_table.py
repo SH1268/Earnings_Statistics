@@ -1,13 +1,10 @@
 # this is the "app/earnings_table.py" file..
 
 import json
-from pprint import pprint
 import requests
-from plotly.express import line
 import plotly.graph_objects as go
-
 import pandas
-
+from plotly.express import line
 from app.alpha import API_KEY
 
 print("Earnings Report")
